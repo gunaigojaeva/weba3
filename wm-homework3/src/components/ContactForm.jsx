@@ -4,10 +4,12 @@ import "../assets/style/components/contactform.css";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
-        name: "",
+        subject: "",
         email: "",
         message: "",
     });
+
+    const [submitStatus, setSubmitStatus] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,35 +23,38 @@ const ContactForm = () => {
         e.preventDefault();
         try {
             const currentDateTime = new Date().toLocaleString();
-    
+
             await axios.post("http://localhost:3001/messages", {
                 ...formData,
                 createdDate: currentDateTime,
             });
-    
+
             setFormData({
-                name: "",
+                subject: "",
                 email: "",
                 message: "",
             });
 
-            alert("Message sent successfully!");
+            setSubmitStatus("success");
+
+            setTimeout(() => {
+                setSubmitStatus(null);
+            }, 1000);
         } catch (error) {
             console.error("Error submitting form:", error);
+            setSubmitStatus("error");
         }
     };
-    
 
     return (
         <form className="contact-form" onSubmit={handleSubmit}>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="subject">Subject:</label>
             <input
                 type="text"
-                id="name"
-                name="name"
-                value={formData.name}
+                id="subject"
+                name="subject"
+                value={formData.subject}
                 onChange={handleChange}
-                required
             />
 
             <label htmlFor="email">Email:</label>
@@ -59,7 +64,6 @@ const ContactForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                required
             />
 
             <label htmlFor="message">Message:</label>
@@ -68,10 +72,16 @@ const ContactForm = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                required
             />
 
-            <button type="submit">Submit</button>
+            <div className="last">
+                <button type="submit">Send</button>
+                <div className="submit-message">
+                    {submitStatus === "success" && (
+                        <div className="success-message">Message sent successfully!</div>
+                    )}
+                </div>
+            </div>
         </form>
     );
 };
