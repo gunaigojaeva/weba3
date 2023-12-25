@@ -1,0 +1,10 @@
+.App {
+    background-image: url('https://png.pngtree.com/background/20210716/original/pngtree-3d-home-office-virtual-background-color-paper-sticker-picture-image_1347706.jpg'); /* Replace this with your direct image link */
+    height: 100vh;
+    background-size: cover; /* Adjust the background-size property based on your preference */
+    background-position: center; /* Center the background image */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    color: #fff;
+}  

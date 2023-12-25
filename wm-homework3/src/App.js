@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import FlashCard from './pages/FlashCard.jsx';
 import Contact from './pages/Contact.jsx';
+import "./app.css";
 
 function App() {
   return (

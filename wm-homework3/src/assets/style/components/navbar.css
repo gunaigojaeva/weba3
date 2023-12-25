@@ -1,0 +1,26 @@
+.navbar {
+    padding: 1rem;
+    color: white;
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
+  
+  .options{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .options a {
+    font-size: x-large;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #a0aec0;
+    font-weight: bold;
+    transition: color 0.3s;
+    border: 1px solid #006cff;
+    padding: 10px 20px;
+    color: #006cff;
+    border-radius: 35px;
+    background-color: white;
+  }
