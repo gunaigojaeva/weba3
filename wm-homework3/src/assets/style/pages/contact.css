@@ -1,0 +1,10 @@
+.all{
+    height: 100vh !important;
+}
+
+.contact{
+    text-align: center;
+    color: #007BFF;
+    padding-top: 100px;
+    padding-bottom: 30px;
+}
