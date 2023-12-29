@@ -14,7 +14,7 @@
     background: #fff;
     border-radius: 8px;
     width: 400px;
-    padding: 20px;
+    padding: 30px 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
@@ -24,6 +24,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   .modal-header h2 {
@@ -75,6 +76,7 @@
   .modal-footer {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 20px;
   }
   
   .submit-button,
@@ -86,9 +88,13 @@
     border-radius: 4px;
     cursor: pointer;
     margin-left: 10px;
+    transition: all 0.5s;
   }
   
-  .submit-button:hover,
+  .submit-button:hover {
+    background-color: #028509;
+  }
+
   .back-button:hover {
-    background-color: #45a049;
+    background-color: rgb(163, 4, 4);
   }
