@@ -75,7 +75,6 @@ const CreateCardModal = ({ onCreate, onClose }) => {
                     <input type="hidden" id="cardStatus" value={cardStatus} onChange={(e) => setStatus(e.target.value)} />
                     <input type="hidden" id="modifiedTime" value={modifiedTime} onChange={(e) => setDateTime(currentDateTime)} />
                 </div>
-                
             </div>
         </div>
     );

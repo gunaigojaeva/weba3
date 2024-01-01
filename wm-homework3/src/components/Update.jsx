@@ -89,14 +89,6 @@ const UpdateCardModal = ({ card, onUpdate, onClose }) => {
                         <option value="Learned">Learned</option>
                     </select>
                 </div>
-                <div className="modal-footer">
-                    <button className="submit-button" onClick={handleUpdate}>
-                        Update
-                    </button>
-                    <button className="back-button" onClick={onClose}>
-                        Cancel
-                    </button>
-                </div>
             </div>
         </div>
     );
