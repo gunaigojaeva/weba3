@@ -75,14 +75,7 @@ const CreateCardModal = ({ onCreate, onClose }) => {
                     <input type="hidden" id="cardStatus" value={cardStatus} onChange={(e) => setStatus(e.target.value)} />
                     <input type="hidden" id="modifiedTime" value={modifiedTime} onChange={(e) => setDateTime(currentDateTime)} />
                 </div>
-                <div className="modal-footer">
-                    <button className="submit-button" onClick={handleCreate}>
-                        Submit
-                    </button>
-                    <button className="back-button" onClick={onClose}>
-                        Back
-                    </button>
-                </div>
+                
             </div>
         </div>
     );
