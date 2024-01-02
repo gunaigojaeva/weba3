@@ -1,31 +1,30 @@
-
 .home-page-container {
-    padding: 20px 50px;
-    text-align: center;
-    height: 100vh !important;
-  }
-  
-  .home-page-title {
-    color: #007BFF;
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
+  padding: 20px 50px;
+  text-align: center;
+  height: 100vh !important;
+}
 
-  .infos{
-    background-color: whitesmoke;
-    padding: 30px 120px;
-    padding-bottom: 100px;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    border-radius: 20px;
-  }
+.home-page-title {
+  color: #007bff;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
 
-.about-part{
+.infos {
+  background-color: whitesmoke;
+  padding: 30px 120px;
+  padding-bottom: 100px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border-radius: 20px;
+}
+
+.about-part {
   background-color: gainsboro;
   padding: 50px 100px;
   border-radius: 20px;
 }
 
-.about{
+.about {
   color: black;
   font-size: 18px;
 }

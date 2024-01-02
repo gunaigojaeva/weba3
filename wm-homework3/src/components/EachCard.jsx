@@ -7,46 +7,46 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 const FlashCardItem = ({ card, onDelete, onUpdate, onSelect, isSelected, onRearrange }) => {
-    const [isFlipped, setIsFlipped] = useState(false);
-    const [draggedCards, setDraggedCards] = useState([]);
+    const [isTurned, setIsFlipped] = useState(false);
+    // const [draggedCards, setDraggedCards] = useState([]);
 
     const handleFlip = () => {
-        setIsFlipped(!isFlipped);
+        setIsFlipped(!isTurned);
     };
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
+    // const handleDragOver = (e) => {
+    //     e.preventDefault();
+    // };
 
-    const handleDragStart = (e) => {
-        const draggedCardId = e.currentTarget.getAttribute("data-card-id");
-        setDraggedCards([draggedCardId]);
-    };
-    
-    const handleDrop = (e, dropTargetCardId) => {
-        e.preventDefault();
-    
-        if (!draggedCards.length || draggedCards[0] === dropTargetCardId) {
-            setDraggedCards([]);
-            return;
-        }
-    
-        onRearrange(draggedCards[0], dropTargetCardId);
-    
-        setDraggedCards([]);
-    };
+    // const handleDragStart = (e) => {
+    //     const draggedCardId = e.currentTarget.getAttribute("data-card-id");
+    //     setDraggedCards([draggedCardId]);
+    // };
+
+    // const handleDrop = (e, dropTargetCardId) => {
+    //     e.preventDefault();
+
+    //     if (!draggedCards.length || draggedCards[0] === dropTargetCardId) {
+    //         setDraggedCards([]);
+    //         return;
+    //     }
+
+    //     onRearrange(draggedCards[0], dropTargetCardId);
+
+    //     setDraggedCards([]);
+    // };
 
     return (
         <div
-            className={`flashcard-item ${isFlipped ? "flipped" : ""}`}
+            className={`flashcard-item ${isTurned ? "turned" : ""}`}
             onClick={handleFlip}
-            draggable="true"
-            onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e, card.id)}
+            // draggable="true"
+            // onDragStart={handleDragStart}
+            // onDragOver={handleDragOver}
+            // onDrop={(e) => handleDrop(e, card.id)}
             data-card-id={card.id}
         >
-            <div className="flipper">
+            <div className="turner">
                 <div className="front">
                     {card.img_link ? (
                         <img src={card.img_link} alt="Card" className="card-image" />
@@ -60,10 +60,10 @@ const FlashCardItem = ({ card, onDelete, onUpdate, onSelect, isSelected, onRearr
                     </p>
                     <div className="buttons">
                         <button className="update-button actionbtn" onClick={() => onUpdate(card)}>
-                        <FontAwesomeIcon icon={faPenToSquare} />
+                            <FontAwesomeIcon icon={faPenToSquare} />
                         </button>
                         <button className="delete-button actionbtn" onClick={() => onDelete(card.id)}>
-                        <FontAwesomeIcon icon={faDeleteLeft} />
+                            <FontAwesomeIcon icon={faDeleteLeft} />
                         </button>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ const FlashCardItem = ({ card, onDelete, onUpdate, onSelect, isSelected, onRearr
                     checked={isSelected}
                     onChange={() => onSelect(card.id)}
                 />
-                <FontAwesomeIcon icon={faCheck} className='check'/>
+                <FontAwesomeIcon icon={faCheck} className='check' />
             </div>
         </div>
     );

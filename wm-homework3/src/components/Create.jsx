@@ -8,9 +8,9 @@ const CreateCardModal = ({ onCreate, onClose }) => {
     const [cardStatus, setStatus] = useState("Want to Learn");
     const [modifiedTime, setDateTime] = useState("");
     const currentDateTime = new Date().toLocaleString();
-    const [createType, setCreateType] = useState(null);
+    const [createType, chooseCardType] = useState(null);
 
-    const handleCreate = () => {
+    const createCard = () => {
         const newCard = {
             front_part: createType === "text" ? front_part : "",
             back_part,
@@ -22,9 +22,9 @@ const CreateCardModal = ({ onCreate, onClose }) => {
         onCreate(newCard);
     };
 
-    const handleImageChange = (e) => {
-        const selectedImage = e.target.files[0];
-        setImagePath(URL.createObjectURL(selectedImage));
+    const chooseImageOption = (e) => {
+        const choosedImg = e.target.files[0];
+        setImagePath(URL.createObjectURL(choosedImg));
     };
 
     return (
@@ -38,8 +38,8 @@ const CreateCardModal = ({ onCreate, onClose }) => {
                     <div className="allOpts">
                         <h3>Choose one of the options:</h3>
                         <div className="options">
-                            <button onClick={() => setCreateType("text")}>Choose Text</button>
-                            <button onClick={() => setCreateType("image")}>Choose Image</button>
+                            <button onClick={() => chooseCardType("text")}>Choose Text</button>
+                            <button onClick={() => chooseCardType("image")}>Choose Image</button>
                         </div>
                     </div>
                     ) : (
@@ -59,7 +59,7 @@ const CreateCardModal = ({ onCreate, onClose }) => {
                             {createType === "image" && (
                                 <>
                                     <label htmlFor="img_link">Upload Image:</label>
-                                    <input type="file" id="img_link" onChange={handleImageChange} accept="image/*" />
+                                    <input type="file" id="img_link" onChange={chooseImageOption} accept="image/*" />
                                 </>
                             )}
 
@@ -76,7 +76,7 @@ const CreateCardModal = ({ onCreate, onClose }) => {
                     <input type="hidden" id="modifiedTime" value={modifiedTime} onChange={(e) => setDateTime(currentDateTime)} />
                 </div>
                 <div className="modal-footer">
-                    <button className="submit-button" onClick={handleCreate}>
+                    <button className="submit-button" onClick={createCard}>
                         Submit
                     </button>
                     <button className="back-button" onClick={onClose}>

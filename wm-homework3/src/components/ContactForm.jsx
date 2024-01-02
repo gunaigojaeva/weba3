@@ -3,7 +3,7 @@ import axios from "axios";
 import "../assets/style/components/contactform.css";
 
 const ContactForm = () => {
-    const [formData, setFormData] = useState({
+    const [formData, configureContactForm] = useState({
         subject: "",
         email: "",
         message: "",
@@ -11,15 +11,15 @@ const ContactForm = () => {
 
     const [submitStatus, setSubmitStatus] = useState(null);
 
-    const handleChange = (e) => {
+    const changeFunction = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
+        configureContactForm((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const submitMessage = async (e) => {
         e.preventDefault();
         try {
             const currentDateTime = new Date().toLocaleString();
@@ -29,7 +29,7 @@ const ContactForm = () => {
                 createdDate: currentDateTime,
             });
 
-            setFormData({
+            configureContactForm({
                 subject: "",
                 email: "",
                 message: "",
@@ -41,20 +41,19 @@ const ContactForm = () => {
                 setSubmitStatus(null);
             }, 1000);
         } catch (error) {
-            console.error("Error submitting form:", error);
-            setSubmitStatus("error");
+            console.error("Error happened while submitting form:", error);
         }
     };
 
     return (
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <form className="contact-form" onSubmit={submitMessage}>
             <label htmlFor="subject">Subject:</label>
             <input
                 type="text"
                 id="subject"
                 name="subject"
                 value={formData.subject}
-                onChange={handleChange}
+                onChange={changeFunction}
             />
 
             <label htmlFor="email">Email:</label>
@@ -63,7 +62,7 @@ const ContactForm = () => {
                 id="email"
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
+                onChange={changeFunction}
             />
 
             <label htmlFor="message">Message:</label>
@@ -71,7 +70,7 @@ const ContactForm = () => {
                 id="message"
                 name="message"
                 value={formData.message}
-                onChange={handleChange}
+                onChange={changeFunction}
             />
 
             <div className="last">
