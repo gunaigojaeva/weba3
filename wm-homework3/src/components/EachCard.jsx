@@ -6,78 +6,92 @@ import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
-const FlashCardItem = ({ card, onDelete, onUpdate, onSelect, isSelected, onRearrange }) => {
+const FlashCardItem = (props) => {
     const [isTurned, setIsFlipped] = useState(false);
-    // const [draggedCards, setDraggedCards] = useState([]);
 
     const handleFlip = () => {
         setIsFlipped(!isTurned);
     };
 
-    // const handleDragOver = (e) => {
-    //     e.preventDefault();
-    // };
+    const dragOverMethod = (e) => {
+        e.preventDefault();
+    };
 
-    // const handleDragStart = (e) => {
-    //     const draggedCardId = e.currentTarget.getAttribute("data-card-id");
-    //     setDraggedCards([draggedCardId]);
-    // };
+    const dragStartMethod = (e) => {
+        const draggedCardId = e.currentTarget.getAttribute("data-card-id");
+        e.dataTransfer.setData("text/plain", draggedCardId);
+    };
 
-    // const handleDrop = (e, dropTargetCardId) => {
-    //     e.preventDefault();
+    const dropMethod = (e) => {
+        e.preventDefault();
+        const droppedCardId = e.currentTarget.getAttribute("data-card-id");
+        const draggedCardId = e.dataTransfer.getData("text/plain");
 
-    //     if (!draggedCards.length || draggedCards[0] === dropTargetCardId) {
-    //         setDraggedCards([]);
-    //         return;
-    //     }
+        const droppedCardFrontPart = props.cards.find((card) => card.id === Number(droppedCardId)).front_part;
+        const draggedCardFrontPart = props.cards.find((card) => card.id === Number(draggedCardId)).front_part;
 
-    //     onRearrange(draggedCards[0], dropTargetCardId);
+        const droppedCardBackPart = props.cards.find((card) => card.id === Number(droppedCardId)).back_part;
+        const draggedCardBackPart = props.cards.find((card) => card.id === Number(draggedCardId)).back_part;
 
-    //     setDraggedCards([]);
-    // };
+        const droppedCardStatus = props.cards.find((card) => card.id === Number(droppedCardId)).cardStatus;
+        const draggedCardStatus = props.cards.find((card) => card.id === Number(draggedCardId)).cardStatus;
+
+        const droppedCardModifyTime = props.cards.find((card) => card.id === Number(droppedCardId)).modifiedTime;
+        const draggedCardModifyTime = props.cards.find((card) => card.id === Number(draggedCardId)).modifiedTime;
+
+        const droppedCardImage = props.cards.find((card) => card.id === Number(droppedCardId)).image;
+        const draggedCardImage = props.cards.find((card) => card.id === Number(draggedCardId)).image;
+        
+        const droppedCardOrder = props.cards.find((card) => card.id === Number(droppedCardId)).order;
+        const draggedCardOrder = props.cards.find((card) => card.id === Number(draggedCardId)).order;
+
+        props.onRearrange(draggedCardId, draggedCardOrder, draggedCardFrontPart, draggedCardBackPart, draggedCardStatus, 
+            draggedCardModifyTime, draggedCardImage, droppedCardId, droppedCardOrder, droppedCardFrontPart, 
+            droppedCardBackPart, droppedCardStatus, droppedCardModifyTime, droppedCardImage);
+    };
 
     return (
         <div
             className={`flashcard-item ${isTurned ? "turned" : ""}`}
             onClick={handleFlip}
-            // draggable="true"
-            // onDragStart={handleDragStart}
-            // onDragOver={handleDragOver}
-            // onDrop={(e) => handleDrop(e, card.id)}
-            data-card-id={card.id}
+            draggable="true"
+            onDragStart={dragStartMethod}
+            onDragOver={dragOverMethod}
+            onDrop={dropMethod}
+            data-card-id={props.card.id}
         >
             <div className="turner">
                 <div className="front">
-                    {card.img_link ? (
-                        <img src={card.img_link} alt="Card" className="card-image" />
+                    {props.card.img_link ? (
+                        <img src={props.card.img_link} alt="Card" className="card-image" />
                     ) : (
-                        <h3 className="front_part">{card.front_part}</h3>
+                        <h3 className="front_part">{props.card.front_part}</h3>
                     )}
-                    <span className="hidden" data-last-modification={card.modifiedTime}></span>
-                    <p className="status">{card.cardStatus}</p>
+                    <span className="hidden" data-last-modification={props.card.modifiedTime}></span>
+                    <p className="status">{props.card.cardStatus}</p>
                     <p className="last-modification">
-                        Last Modified: {new Date(card.modifiedTime).toLocaleDateString()}
+                        Last Modified: {new Date(props.card.modifiedTime).toLocaleDateString()}
                     </p>
                     <div className="buttons">
-                        <button className="update-button actionbtn" onClick={() => onUpdate(card)}>
+                        <button className="update-button actionbtn" onClick={() => props.onUpdate(props.card)}>
                             <FontAwesomeIcon icon={faPenToSquare} />
                         </button>
-                        <button className="delete-button actionbtn" onClick={() => onDelete(card.id)}>
+                        <button className="delete-button actionbtn" onClick={() => props.onDelete(props.card.id)}>
                             <FontAwesomeIcon icon={faDeleteLeft} />
                         </button>
                     </div>
                 </div>
                 <div className="back">
-                    <p className="status">{card.cardStatus}</p>
-                    <p className="backTxt">{card.back_part}</p>
+                    <p className="status">{props.card.cardStatus}</p>
+                    <p className="backTxt">{props.card.back_part}</p>
                 </div>
             </div>
             <div className="checkbox-container">
                 <input
                     type="checkbox"
                     className="checkbox"
-                    checked={isSelected}
-                    onChange={() => onSelect(card.id)}
+                    checked={props.isSelected}
+                    onChange={() => props.onSelect(props.card.id)}
                 />
                 <FontAwesomeIcon icon={faCheck} className='check' />
             </div>

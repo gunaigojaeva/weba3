@@ -72,15 +72,15 @@ const Cards = () => {
         setChoosenSortings(selectedOptions);
     };
 
-    const rearrangeMethod = (draggedCardId, dropTargetCardId) => {
-        const draggedIndex = cards.findIndex((card) => card.id === draggedCardId);
-        const dropTargetIndex = cards.findIndex((card) => card.id === dropTargetCardId);
+    // const rearrangeMethod = (draggedCardId, dropTargetCardId) => {
+    //     const draggedIndex = cards.findIndex((card) => card.id === draggedCardId);
+    //     const dropTargetIndex = cards.findIndex((card) => card.id === dropTargetCardId);
 
-        const newCards = [...cards];
-        [newCards[draggedIndex], newCards[dropTargetIndex]] = [newCards[dropTargetIndex], newCards[draggedIndex]];
+    //     const newCards = [...cards];
+    //     [newCards[draggedIndex], newCards[dropTargetIndex]] = [newCards[dropTargetIndex], newCards[draggedIndex]];
 
-        setCards(newCards);
-    };
+    //     setCards(newCards);
+    // };
 
     const deleteMethod = async (id) => {
         try {
@@ -217,6 +217,61 @@ const Cards = () => {
         fetchCards();
     }, [choosenStatus, choosenSortings]);
 
+    const handleRearrangeCards = async (
+        draggedCardId, draggedCardOrder, draggedCardFrontPart, draggedCardBackPart, draggedCardStatus, 
+            draggedCardModifyTime, draggedCardImage, droppedCardId, droppedCardOrder, droppedCardFrontPart, 
+            droppedCardBackPart, droppedCardStatus, droppedCardModifyTime, droppedCardImage
+    ) => {
+        try {
+            const draggedIndex = cards.findIndex((card) => card.id === Number(draggedCardId));
+            const dropTargetIndex = cards.findIndex((card) => card.id === Number(droppedCardId));
+
+            const newCards = [...cards];
+            [newCards[draggedIndex], newCards[dropTargetIndex]] = [newCards[dropTargetIndex], newCards[draggedIndex]];
+
+            newCards[draggedIndex].order = droppedCardOrder;
+            newCards[dropTargetIndex].order = draggedCardOrder;
+
+            newCards[draggedIndex].front_part = droppedCardFrontPart;
+            newCards[dropTargetIndex].front_part = draggedCardFrontPart;
+
+            newCards[draggedIndex].back_part = droppedCardBackPart;
+            newCards[dropTargetIndex].back_part = draggedCardBackPart;
+
+            newCards[draggedIndex].cardStatus = droppedCardStatus;
+            newCards[dropTargetIndex].cardStatus = draggedCardStatus;
+
+            newCards[draggedIndex].modifiedTime = draggedCardModifyTime;
+            newCards[dropTargetIndex].modifiedTime = droppedCardModifyTime;
+
+            newCards[draggedIndex].id = draggedCardId;
+            newCards[dropTargetIndex].id = droppedCardId;            
+
+            await axios.put(`http://localhost:3001/allCards/${draggedCardId}`, {
+                order: droppedCardOrder,
+                front_part: droppedCardFrontPart,
+                back_part: droppedCardBackPart,
+                cardStatus: droppedCardStatus,
+                modifiedTime: draggedCardModifyTime,
+                image: droppedCardImage,
+            });
+
+            await axios.put(`http://localhost:3001/allCards/${droppedCardId}`, {
+                order: draggedCardOrder,
+                front_part: draggedCardFrontPart,
+                back_part: draggedCardBackPart,
+                cardStatus: draggedCardStatus,
+                modifiedTime: draggedCardModifyTime,
+                image: draggedCardImage,
+            });
+
+            setCards(newCards);
+        } catch (error) {
+            console.error("Error rearranging cards:", error);
+        }
+    };
+
+
     return (
         <div className="all">
             <Navbar />
@@ -277,7 +332,8 @@ const Cards = () => {
                                 onUpdate={updateMethod}
                                 onSelect={handleSelectCard}
                                 isSelected={choosenCards.includes(card.id)}
-                                onRearrange={rearrangeMethod}
+                                onRearrange={handleRearrangeCards}
+                                cards={cards}
                             />
                         ))}
                     </div>
