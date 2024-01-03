@@ -7,7 +7,7 @@ import "./app.css";
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename='/weba3'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
