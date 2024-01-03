@@ -64,12 +64,7 @@ const CreateCardModal = ({ onCreate, onClose }) => {
                             )}
 
                             <label htmlFor="back_part">Answer:</label>
-                            <input
-                                type="text"
-                                id="back_part"
-                                value={back_part}
-                                onChange={(e) => setBack_part(e.target.value)}
-                            />
+                          
                         </>
                     )}
                     <input type="hidden" id="cardStatus" value={cardStatus} onChange={(e) => setStatus(e.target.value)} />
