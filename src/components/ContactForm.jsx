@@ -9,15 +9,6 @@ const ContactForm = () => {
         message: "",
     });
 
-    const [submitStatus, setSubmitStatus] = useState(null);
-
-    const changeFunction = (e) => {
-        const { name, value } = e.target;
-        configureContactForm((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
 
     const submitMessage = async (e) => {
         e.preventDefault();
