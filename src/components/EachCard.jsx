@@ -81,6 +81,12 @@ const FlashCardItem = (props) => {
                         </button>
                     </div>
                 </div>
+                <div className="back">
+                    <p className="status">{props.cardStatus}</p>
+                    <p className="backTxt">{props.card.back_part}</p>
+                    
+
+                </div>
             
             </div>
             <div className="checkbox-container">
