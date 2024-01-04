@@ -48,14 +48,14 @@ const CardUpdater = ({ card, onUpdate, onClose }) => {
 
     return (
         <div className="modal-overlay">
-            <div className="update-card-modal">
-                <div className="modal-content">
-                    {isImageCard && (
-                        <>
-                            <label htmlFor="img_link">Upload New Image:</label>
-                            <input type="file" id="img_link" accept="image/*" onChange={handleImageChange} />
-                        </>
-                    )}
+        <div className="update-card-modal">
+            <div className="modal-content">
+                {isImageCard && (
+                    <>
+                        <label htmlFor="img_link">Upload New Image:</label>
+                        <input type="file" id="img_link" accept="image/*" onChange={handleImageChange} />
+                    </>
+                )}
 
                     {!isImageCard && (
                         <>

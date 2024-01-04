@@ -27,8 +27,7 @@ const FlashCardItem = (props) => {
         const droppedCardId = e.currentTarget.getAttribute("data-card-id");
         const draggedCardId = e.dataTransfer.getData("text/plain");
 
-        const droppedCardFrontPart = props.cards.find((card) => card.id === Number(droppedCardId)).front_part;
-        const draggedCardFrontPart = props.cards.find((card) => card.id === Number(draggedCardId)).front_part;
+        
 
         const droppedCardBackPart = props.cards.find((card) => card.id === Number(droppedCardId)).back_part;
         const draggedCardBackPart = props.cards.find((card) => card.id === Number(draggedCardId)).back_part;
